@@ -425,10 +425,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1193684839}
   - component: {fileID: 1193684838}
+  - component: {fileID: 1193684841}
   - component: {fileID: 1193684837}
   - component: {fileID: 1193684836}
   - component: {fileID: 1193684840}
-  - component: {fileID: 1193684841}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -550,7 +550,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1193684841
 MonoBehaviour:
@@ -564,7 +564,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4c4995a3b7fe04f91da3649e902da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
+  walkSpeed: 20
+  runSpeed: 35
+  crouchSpeed: 10
+  jumpForce: 5
+  crouchPosY: 0
+  lookSensitivity: 1.5
+  cameraRotationLimit: 45
+  theCamera: {fileID: 963194227}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
