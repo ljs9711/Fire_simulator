@@ -4,46 +4,36 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float movementSpeed = 5.0f;
-    public float mouseSensitivity = 2.0f;
+    [SerializeField]
+    private float walkSpeed;
 
-    private void Update()
+    private Rigidbody playerRigid;
+
+
+    // Start is called before the first frame update
+    void Start()
     {
-        // 캐릭터 이동
-        MoveCharacter();
-
-        // 카메라 회전
-        RotateCamera();
+        playerRigid = GetComponent<Rigidbody>();
     }
 
-    void MoveCharacter()
+    // Update is called once per frame
+    void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0.0f, vertical) * movementSpeed * Time.deltaTime;
-        transform.Translate(movement);
+        Move();
     }
 
-    void RotateCamera()
+    private void Move()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float moveDirectionX = Input.GetAxisRaw("Horizontal");
+        float moveDirectionZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 rotation = new Vector3(-mouseY, mouseX, 0.0f) * mouseSensitivity;
-        transform.Rotate(rotation);
+        Vector3 moveHorizontal = transform.right * moveDirectionX;
+        Vector3 moveVertical = transform.right * moveDirectionZ;
 
-        // 수직 회전 제한
-        float currentXRotation = transform.rotation.eulerAngles.x;
-        if (currentXRotation > 90.0f && currentXRotation < 180.0f)
-        {
-            currentXRotation = 90.0f;
-        }
-        else if (currentXRotation > 180.0f && currentXRotation < 270.0f)
-        {
-            currentXRotation = 270.0f;
-        }
+        Vector3 Velocity = (moveHorizontal + moveVertical).normalized * walkSpeed;
 
-        transform.rotation = Quaternion.Euler(currentXRotation, transform.rotation.eulerAngles.y, 0.0f);
+        playerRigid.MovePosition(transform.position + Velocity * Time.deltaTime); // Time.deltaTime 시간동안 velocity 만큼 움직임
+
+
     }
 }
