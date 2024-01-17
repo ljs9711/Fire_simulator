@@ -82,11 +82,11 @@ public class Player : MonoBehaviour
     //*****************함수*****************
 
 
-    
+
     //앉기시도
     private void TryCrouch()
     {
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Crouch();
         }
@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
     {
         isCrouch = !isCrouch;
 
-        if(isCrouch)
+        if (isCrouch)
         {
             applySpeed = crouchSpeed;
             applyCrouchY = crouchPosY;
@@ -119,12 +119,12 @@ public class Player : MonoBehaviour
         float _posY = theCamera.transform.localPosition.y;
         int count = 0;
 
-        while(_posY != applyCrouchY)
+        while (_posY != applyCrouchY)
         {
             count++;
             _posY = Mathf.Lerp(_posY, applyCrouchY, 0.015f); // 보간함수 사용하여 자연스럽게 앉기 / 단점은 0.9999에서 1로 올라가지 않아 count 변수사용
             theCamera.transform.localPosition = new Vector3(0, _posY, 0);
-            if(count > 500)
+            if (count > 500)
             {
                 break;
             }
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
         theCamera.transform.localPosition = new Vector3(0, applyCrouchY, 0f);
-        
+
     }
 
 
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         //앉은 상태에서 점프시 앉은 상태 해제
-        if(isCrouch)
+        if (isCrouch)
         {
             Crouch();
         }
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
     }
 
     //지면체크
-    private void IsGround() 
+    private void IsGround()
     {                                                                //캡슐콜라이더 영역의 Y 의 절반+ 0.1f(계단,대각등 판정 위해)
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f); //고정된 좌표 사용하기위해 Vector3 사용
     }
@@ -201,7 +201,7 @@ public class Player : MonoBehaviour
 
 
     //상하 카메라 회전
-    private void CameraRotation() 
+    private void CameraRotation()
     {
         float _xRotation = Input.GetAxisRaw("Mouse Y");
         float _cameraRotationX = _xRotation * lookSensitivity;
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
     }
 
     //좌우 캐릭터회전
-    private void CharacterRotation() 
+    private void CharacterRotation()
     {
         float _yRotation = Input.GetAxisRaw("Mouse X");
         Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
