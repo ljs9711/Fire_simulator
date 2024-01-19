@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Camera theCamera;
     private Rigidbody myRigid;
+    private GunController theGunController;
 
     //땅 착지 여부
     private CapsuleCollider capsuleCollider;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         applySpeed = walkSpeed;
         capsuleCollider = GetComponent<CapsuleCollider>();
+        theGunController = FindObjectOfType<GunController>();
 
         //초기화
         originPosY = theCamera.transform.localPosition.y; //player 기준으로 카메라가 내려가야해서 localPosition 사용
@@ -188,6 +190,9 @@ public class Player : MonoBehaviour
         {
             Crouch();
         }
+
+        theGunController.CancelFineSight();
+
         isRun = true;
         applySpeed = runSpeed;
     }

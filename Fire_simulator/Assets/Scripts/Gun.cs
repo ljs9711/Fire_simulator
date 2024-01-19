@@ -20,7 +20,9 @@ public class Gun : MonoBehaviour
     public float retroActionForce; //반동세기
     public float retroActionFineSightForce; //정조준시 반동세기
 
-    public Vector3 fineSightOriginPos; //정조준시 Vector3 값
+    public Vector3 fineSightOriginPos; //정조준시 Vector3 포지션값
+
+
     public Animator anim; //총 애니메이션
     public ParticleSystem muzzleFlash; //총구 섬광
 
