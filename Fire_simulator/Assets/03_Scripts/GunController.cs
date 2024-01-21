@@ -23,8 +23,11 @@ public class GunController : MonoBehaviour
 
     //레이저 충돌 정보를 받아옴
     private RaycastHit hitInfo;
+
+    //필요한 컴포넌트
     [SerializeField]
     private Camera theCam;
+    private Crosshair theCrosshair;
 
     //피격이펙트
     [SerializeField]
@@ -36,6 +39,7 @@ public class GunController : MonoBehaviour
     {
         //originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
+        theCrosshair = FindObjectOfType<Crosshair>();
     }
 
     void Update()
@@ -85,6 +89,7 @@ public class GunController : MonoBehaviour
     //발사후 계산
     private void Shoot() //발사후
     {
+        theCrosshair.FireAnimation();
         currentGun.currentBulletCount--; //총알 감소
         currentFireRate = currentGun.fireRate; //연사 속도 재계산
         PlaySE(currentGun.fire_Sound);
@@ -98,8 +103,14 @@ public class GunController : MonoBehaviour
 
 
     private void Hit()
-    {
-        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward, out hitInfo, currentGun.range))
+    {                       //현재 위치에서             forward 로 쏘는데
+        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward 
+            //랜덤값을 foward로 더해줌.(총 정확도)         X축 최소 값                                          X축 최대 값
+            + new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
+                                                         //Y축 최소 값                                          Y축 최대 값
+                          Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
+                          0)
+            , out hitInfo, currentGun.range))
         {
             GameObject clone = Instantiate(hit_effect_prefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal)); //피격 이펙트 생성
             Destroy(clone, 2f);
@@ -255,5 +266,10 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    public bool GetFindSightMode()
+    {
+        return isFineSightMode;
     }
 }
