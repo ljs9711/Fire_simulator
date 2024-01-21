@@ -12682,7 +12682,7 @@ MonoBehaviour:
   walkSpeed: 30
   runSpeed: 50
   crouchSpeed: 15
-  jumpForce: 10
+  jumpForce: 6
   crouchPosY: 1
   lookSensitivity: 1.5
   cameraRotationLimit: 45
@@ -21754,7 +21754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunName: 'SubMachineGun1 '
   range: 100
-  accuracy: 0.04
+  accuracy: 0.01
   fireRate: 0.15
   reloadTime: 2
   damage: 30

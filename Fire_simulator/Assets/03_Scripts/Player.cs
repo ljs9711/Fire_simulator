@@ -184,6 +184,7 @@ public class Player : MonoBehaviour
     private void IsGround()
     {                                                                //캡슐콜라이더 영역의 Y 의 절반+ 0.1f(계단,대각등 판정 위해)
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f); //고정된 좌표 사용하기위해 Vector3 사용
+        theCrosshair.RunningAnimation(!isGround);
     }
 
 
@@ -261,7 +262,7 @@ public class Player : MonoBehaviour
 
     private void MoveCheck() //크로스헤어 플레이어 위치 체크
     {
-        if (!isRun && !isCrouch)
+        if (!isRun && !isCrouch && isGround)
         {
             if (Vector3.Distance(lastPos, transform.position) >= 0.01f) //전 프레임과 현재 위치값이 0.01f 보다 작으면 가만있는것
                 isWalk = true;
