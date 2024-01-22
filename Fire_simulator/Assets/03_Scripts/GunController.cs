@@ -128,6 +128,16 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public void CancelReload()
+    {
+        if (isReload)
+        {
+            StopAllCoroutines();
+            isReload = false;
+        }
+    }
+
+
     //¿Á¿Â¿¸
     IEnumerator ReloadCoroutine()
     {
