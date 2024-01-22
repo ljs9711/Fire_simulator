@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
+    //활성화 여부
+    public static bool isActivate = true;
+
     //현재 장착된 총
     [SerializeField]
     private Gun currentGun;
@@ -40,14 +43,22 @@ public class GunController : MonoBehaviour
         //originPos = Vector3.zero;
         audioSource = GetComponent<AudioSource>();
         theCrosshair = FindObjectOfType<Crosshair>();
+
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentGun.anim;
+
     }
 
     void Update()
     {
-        GunFireRateCalc();
-        TryFire();
-        TryReload();
-        TryFineSight();
+        if (isActivate)
+        {
+            GunFireRateCalc();
+            TryFire();
+            TryReload();
+            TryFineSight();
+        }
+            
     }
 
 
@@ -282,5 +293,19 @@ public class GunController : MonoBehaviour
     public bool GetFindSightMode()
     {
         return isFineSightMode;
+    }
+
+    public void GunChange(Gun _gun)
+    {
+        if (WeaponManager.currentWeapon != null) //무언가 들고있으면
+            WeaponManager.currentWeapon.gameObject.SetActive(false); //게임 오브젝트 비활성화
+
+        currentGun = _gun; //바꿀 무기가 현재 무기로 바뀜
+        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
+        WeaponManager.currentWeaponAnim = currentGun.anim;
+
+        currentGun.transform.localPosition = Vector3.zero; //위치 바뀌었을 수도 있으니 0,0,0으로 초기화
+        currentGun.gameObject.SetActive(true);
+        isActivate = true; //무기 활성화 여부
     }
 }

@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
     private void IsGround()
     {                                                                //캡슐콜라이더 영역의 Y 의 절반+ 0.1f(계단,대각등 판정 위해)
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f); //고정된 좌표 사용하기위해 Vector3 사용
-        theCrosshair.RunningAnimation(!isGround);
+        theCrosshair.JumpingAnimation(!isGround);
     }
 
 

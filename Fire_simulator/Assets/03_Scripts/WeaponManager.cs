@@ -7,19 +7,19 @@ public class WeaponManager : MonoBehaviour
     //무기 중복 교체 실행 방지
     public static bool isChangeWeapon = false;
     //현재 무기, 현재무기 애니메이션
-    public static Transform currentWeapon;
+    public static Transform currentWeapon; //기존무기 껐다 키기 용
     public static Animator currentWeaponAnim;
 
     //현재 무기의 타입
     [SerializeField]
     private string currentWeaponType;
-    
+
     //무기 교체 딜레이
     [SerializeField]
-    private float changeWeaponDelayTime;
+    private float changeWeaponDelayTime = 1;
     //무기 교체가 완전 끝난 시점
     [SerializeField]
-    private float changeWeaponEndDelayTime; 
+    private float changeWeaponEndDelayTime;
 
     //무기 종류들 관리
     [SerializeField]
@@ -54,11 +54,11 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //맨손
+            StartCoroutine(ChangeWeaponCoroutine("HAND", "맨손"));
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //서브머신건
+            StartCoroutine(ChangeWeaponCoroutine("GUN", "SubMachineGun1"));//서브머신건
         }
     }
 
@@ -70,6 +70,12 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(changeWeaponDelayTime);
 
         CancelPreWeaponAction();
+        WeaponChange(_type, _name);
+
+        yield return new WaitForSeconds(changeWeaponEndDelayTime);
+
+        currentWeaponType = _type;
+        isChangeWeapon = false;
     }
 
     private void CancelPreWeaponAction()
@@ -79,9 +85,19 @@ public class WeaponManager : MonoBehaviour
             case "GUN":
                 theGunController.CancelFineSight();
                 theGunController.CancelReload();
+                GunController.isActivate = false;
                 break;
             case "HAND":
+                HandController.isActivate = false;
                 break;
         }
+    }
+
+    private void WeaponChange(string _type, string _name)
+    {
+        if(_type == "GUN")
+            theGunController.GunChange(gunDictionary[_name]);
+        if (_type == "HAND")
+            theHandController.HandChange(handDictionary[_name]);
     }
 }

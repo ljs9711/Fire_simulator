@@ -65,8 +65,8 @@ ModelImporter:
       name: Put Back Rifle
       takeName: mixamo.com
       internalID: -6429526425907228718
-      firstFrame: 230
-      lastFrame: 450
+      firstFrame: 266
+      lastFrame: 314
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
