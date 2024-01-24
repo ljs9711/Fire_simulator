@@ -25,17 +25,27 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     private Gun[] guns;
     [SerializeField]
-    private Hand[] hands;
+    private MeleeWeapon[] hands;
+    [SerializeField]
+    private MeleeWeapon[] axes;
+    [SerializeField]
+    private MeleeWeapon[] pickaxes;
 
     //관리 차원에서 쉽게 무기 접근이 가능하도록 만듦.
     private Dictionary<string, Gun> gunDictionary = new Dictionary<string, Gun>();
-    private Dictionary<string, Hand> handDictionary = new Dictionary<string, Hand>();
+    private Dictionary<string, MeleeWeapon> handDictionary = new Dictionary<string, MeleeWeapon>();
+    private Dictionary<string, MeleeWeapon> axeDictionary = new Dictionary<string, MeleeWeapon>();
+    private Dictionary<string, MeleeWeapon> pickaxeDictionary = new Dictionary<string, MeleeWeapon>();
 
     //필요한 컴포넌트
     [SerializeField]
     private GunController theGunController;
     [SerializeField]
     private HandController theHandController;
+    [SerializeField]
+    private AxeController theAxeController;
+    [SerializeField]
+    private PickAxeController thePickAxeController;
 
 
     void Start()
@@ -46,7 +56,15 @@ public class WeaponManager : MonoBehaviour
         }
         for (int i = 0; i < hands.Length; i++)
         {
-            handDictionary.Add(hands[i].handName, hands[i]);
+            handDictionary.Add(hands[i].MeleeWeaponName, hands[i]);
+        }
+        for (int i = 0; i < axes.Length; i++)
+        {
+            axeDictionary.Add(axes[i].MeleeWeaponName, axes[i]);
+        }
+        for (int i = 0; i < pickaxes.Length; i++)
+        {
+            pickaxeDictionary.Add(pickaxes[i].MeleeWeaponName, pickaxes[i]);
         }
     }
 
@@ -59,6 +77,14 @@ public class WeaponManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             StartCoroutine(ChangeWeaponCoroutine("GUN", "SubMachineGun1"));//서브머신건
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            StartCoroutine(ChangeWeaponCoroutine("AXE", "Axe"));//도끼
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            StartCoroutine(ChangeWeaponCoroutine("PICKAXE", "PickAxe"));//곡괭이
         }
     }
 
@@ -90,6 +116,12 @@ public class WeaponManager : MonoBehaviour
             case "HAND":
                 HandController.isActivate = false;
                 break;
+            case "AXE":
+                AxeController.isActivate = false;
+                break;
+            case "PICKAXE":
+                PickAxeController.isActivate = false;
+                break;
         }
     }
 
@@ -97,7 +129,11 @@ public class WeaponManager : MonoBehaviour
     {
         if(_type == "GUN")
             theGunController.GunChange(gunDictionary[_name]);
-        if (_type == "HAND")
-            theHandController.HandChange(handDictionary[_name]);
+        else if (_type == "HAND")
+            theHandController.MeleeWeaponChange(handDictionary[_name]);
+        else if (_type == "AXE")
+            theAxeController.MeleeWeaponChange(axeDictionary[_name]);
+        else if (_type == "PICKAXE")
+            thePickAxeController.MeleeWeaponChange(pickaxeDictionary[_name]);
     }
 }
