@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody myRigid;
     private GunController theGunController;
     private Crosshair theCrosshair;
+    private StatusController theStatusController;
 
     //땅 착지 여부
     private CapsuleCollider capsuleCollider;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
         theGunController = FindObjectOfType<GunController>();
         theCrosshair = FindObjectOfType<Crosshair>();
+        theStatusController = FindObjectOfType<StatusController>();
 
         //초기화
         applySpeed = walkSpeed;
@@ -159,7 +161,7 @@ public class PlayerController : MonoBehaviour
     //점프 시도
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && theStatusController.GetCurrentSP() > 0)
         {
             Jump();
             isGround = false;
@@ -176,7 +178,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
         }
 
-
+        theStatusController.DecreaseStamina(100);
         myRigid.velocity = transform.up * jumpForce;
     }
 
@@ -214,6 +216,7 @@ public class PlayerController : MonoBehaviour
 
         isRun = true;
         theCrosshair.RunningAnimation(isRun);
+        theStatusController.DecreaseStamina(10);
         applySpeed = runSpeed;
     }
 
