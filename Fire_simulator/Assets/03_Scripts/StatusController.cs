@@ -5,66 +5,63 @@ using UnityEngine.UI;
 
 public class StatusController : MonoBehaviour
 {
-    //체력
+    // 체력
     [SerializeField]
     private int hp;
     private int currentHp;
 
-    //스태니마
+    // 스태미나
     [SerializeField]
     private int sp;
     private int currentSp;
 
-    //스태미나 증가량
+    // 스태미나 증가량
     [SerializeField]
     private int spIncreaseSpeed;
 
-    //스태미나 재회복 딜레이
+    // 스태미나 재회복 딜레이
     [SerializeField]
     private int spRechargeTime;
     private int currentSpRechargeTime;
 
-    //스태미나 감소 여부
+    // 스태미나 감소 여부
     private bool spUsed;
 
-    //방어력
+    // 방어력
     [SerializeField]
     private int dp;
     private int currentDp;
 
-    //배고픔
+    // 배고픔
     [SerializeField]
     private int hungry;
     private int currentHungry;
 
-    //배고픔이 줄어드는 속도
+    // 배고픔이 줄어드는 속도
     [SerializeField]
     private int hungryDecreaseTime;
     private int currentHungryDecreaseTime;
 
-    //목마름
+    // 목마름
     [SerializeField]
     private int thirsty;
     private int currentThirsty;
 
-    //목마름이 줄어드는 속도
+    // 목마름이 줄어드는 속도
     [SerializeField]
     private int thirstyDecreaseTime;
     private int currentThirstyDecreaseTime;
 
-    //만족도
+    // 만족도
     [SerializeField]
     private int satisfy;
     private int currentSatisfy;
 
-    //필요한 이미지
+    // 필요한 이미지
     [SerializeField]
     private Image[] images_Gauge;
 
     private const int HP = 0, DP = 1, SP = 2, HUNGRY = 3, THIRSTY = 4, SATISFY = 5;
-
-
-
 
     void Start()
     {
@@ -78,17 +75,16 @@ public class StatusController : MonoBehaviour
 
     void Update()
     {
-        Hungry();
-        Thirsry();
-        SpRechargeTime();
-        SpRecover();
+        UpdateHungry();
+        UpdateThirsty();
+        UpdateSpRechargeTime();
+        UpdateSpRecover();
 
-        GaugeUpdate();
-        
+        UpdateGauges();
     }
 
-
-    private void SpRechargeTime()
+    // 스태미나 재회복 딜레이를 처리하는 함수
+    private void UpdateSpRechargeTime()
     {
         if (spUsed)
         {
@@ -99,15 +95,17 @@ public class StatusController : MonoBehaviour
         }
     }
 
-    private void SpRecover()
+    // 스태미나를 회복하는 함수
+    private void UpdateSpRecover()
     {
-        if(!spUsed && currentSp < sp)
+        if (!spUsed && currentSp < sp)
         {
             currentSp += spIncreaseSpeed;
         }
     }
 
-    private void Hungry()
+    // 배고픔을 처리하는 함수
+    private void UpdateHungry()
     {
         if (currentHungry > 0)
         {
@@ -123,9 +121,8 @@ public class StatusController : MonoBehaviour
             Debug.Log("배고픔 수치가 0이 되었습니다.");
     }
 
-
-
-    private void Thirsry()
+    // 목마름을 처리하는 함수
+    private void UpdateThirsty()
     {
         if (currentThirsty > 0)
         {
@@ -141,8 +138,8 @@ public class StatusController : MonoBehaviour
             Debug.Log("목마름 수치가 0이 되었습니다.");
     }
 
-
-    private void GaugeUpdate()
+    // UI 게이지 업데이트 함수
+    private void UpdateGauges()
     {
         images_Gauge[HP].fillAmount = (float)currentHp / hp;
         images_Gauge[SP].fillAmount = (float)currentSp / sp;
@@ -152,10 +149,10 @@ public class StatusController : MonoBehaviour
         images_Gauge[SATISFY].fillAmount = (float)currentSatisfy / satisfy;
     }
 
-
+    // 체력을 증가시키는 함수
     public void IncreaseHP(int _count)
     {
-        if(currentDp > 0)
+        if (currentDp > 0)
         {
             DecreaseDP(_count);
             return;
@@ -165,6 +162,7 @@ public class StatusController : MonoBehaviour
         else currentHp = hp;
     }
 
+    // 체력을 감소시키는 함수
     public void DecreaseHP(int _count)
     {
         currentHp -= _count;
@@ -173,6 +171,7 @@ public class StatusController : MonoBehaviour
             Debug.Log("HP가 0이 되었습니다.");
     }
 
+    // 방어력을 증가시키는 함수
     public void IncreaseDP(int _count)
     {
         if (currentDp + _count < dp)
@@ -180,6 +179,7 @@ public class StatusController : MonoBehaviour
         else currentDp = dp;
     }
 
+    // 방어력을 감소시키는 함수
     public void DecreaseDP(int _count)
     {
         currentDp -= _count;
@@ -188,6 +188,7 @@ public class StatusController : MonoBehaviour
             Debug.Log("방어력이 0이 되었습니다.");
     }
 
+    // 배고픔을 증가시키는 함수
     public void IncreaseHungry(int _count)
     {
         if (currentHungry + _count < hungry)
@@ -195,6 +196,7 @@ public class StatusController : MonoBehaviour
         else currentHungry = hungry;
     }
 
+    // 배고픔을 감소시키는 함수
     public void DecreaseHungry(int _count)
     {
         if (currentHungry - _count < 0)
@@ -203,7 +205,7 @@ public class StatusController : MonoBehaviour
             currentHungry -= _count;
     }
 
-
+    // 목마름을 증가시키는 함수
     public void IncreaseThirsty(int _count)
     {
         if (currentThirsty + _count < thirsty)
@@ -211,6 +213,7 @@ public class StatusController : MonoBehaviour
         else currentThirsty = thirsty;
     }
 
+    // 목마름을 감소시키는 함수
     public void DecreaseThirsty(int _count)
     {
         if (currentThirsty - _count < 0)
@@ -219,7 +222,7 @@ public class StatusController : MonoBehaviour
             currentThirsty -= _count;
     }
 
-
+    // 스태미나를 감소시키는 함수
     public void DecreaseStamina(int _count)
     {
         spUsed = true;
@@ -231,6 +234,7 @@ public class StatusController : MonoBehaviour
             currentSp = 0;
     }
 
+    // 현재 스태미나 값을 반환하는 함수
     public int GetCurrentSP()
     {
         return currentSp;
