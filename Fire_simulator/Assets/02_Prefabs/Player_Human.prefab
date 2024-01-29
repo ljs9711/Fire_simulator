@@ -1555,6 +1555,7 @@ GameObject:
   - component: {fileID: 7225718661861281372}
   - component: {fileID: 9036745293339963146}
   - component: {fileID: 8963696401333601884}
+  - component: {fileID: 6878440426272345224}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1616,7 +1617,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1636,6 +1637,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581607563919135515}
   m_Enabled: 1
+--- !u!114 &6878440426272345224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581607563919135515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef30f98934e0af346b3571ee2855b763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  actionText: {fileID: 0}
 --- !u!1 &602788595462965887
 GameObject:
   m_ObjectHideFlags: 0
@@ -5936,7 +5954,7 @@ MonoBehaviour:
   damage: 0
   workSpeed: 0
   attackDelay: 1.7
-  attackDelay_in: 0.5
+  attackDelay_in: 1
   attackDelay_out: 0.1
   anim: {fileID: 7402515351087356843}
 --- !u!1 &2395702500358359994
@@ -32252,8 +32270,8 @@ Rigidbody:
   m_GameObject: {fileID: 8348911961430322795}
   serializedVersion: 4
   m_Mass: 80
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
