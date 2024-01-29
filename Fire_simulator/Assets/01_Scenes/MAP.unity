@@ -74673,6 +74673,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubMachineGun
       objectReference: {fileID: 0}
+    - target: {fileID: 4843355391164264469, guid: 038d2e37675d3f848bccbbe8e2730f3a, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843355391164264469, guid: 038d2e37675d3f848bccbbe8e2730f3a, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 5223294574157490863, guid: 038d2e37675d3f848bccbbe8e2730f3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.0138006
@@ -74835,6 +74843,14 @@ PrefabInstance:
     - target: {fileID: 3162483388149743664, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278050958749094316, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
+      propertyPath: runSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278050958749094316, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
+      propertyPath: walkSpeed
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6878440426272345224, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
       propertyPath: actionText
