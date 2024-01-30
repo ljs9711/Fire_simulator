@@ -20,6 +20,11 @@ public class AxeController : MeleeWeaponController
         {
             if (CheckObject())
             {
+                if (hitInfo.transform.tag == "Wood")
+                {
+                    hitInfo.transform.GetComponent<Wood>().Mining();
+                }
+
                 isSwing = false;
                 Debug.Log(hitInfo.transform.name);
             }

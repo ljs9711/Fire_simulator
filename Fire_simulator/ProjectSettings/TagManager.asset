@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Rock
   - Item
+  - Wood
   layers:
   - Default
   - TransparentFX
