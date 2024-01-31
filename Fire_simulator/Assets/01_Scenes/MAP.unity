@@ -74850,7 +74850,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2427802969234223763, guid: d77da7a6a248b2d48ac59ab0eeda512c, type: 3}
       propertyPath: LightsModule.maxLights
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2427802969234223763, guid: d77da7a6a248b2d48ac59ab0eeda512c, type: 3}
       propertyPath: LightsModule.rangeCurve.scalar
