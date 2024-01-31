@@ -153,13 +153,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ea1fd63bb7f54499424959d0e2fb2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 3
   destroyTime: 5
   col: {fileID: 5507402125702027640}
   go_rock: {fileID: 336591557261487204}
   go_debris: {fileID: 1183131865320338395}
   go_effect_prefabs: {fileID: 439505576143810846, guid: d3992f98c98b76e46ac041a98bc8dec4, type: 3}
-  go_rock_item_prefab: {fileID: 0}
+  go_rock_item_prefab: {fileID: 5926339888804002712, guid: b9d529293daee8841b425bd37f0c97f5, type: 3}
   count: 3
   strike_Sound: Axe_Strike
   destroy_Sound: Wood_Destroy
