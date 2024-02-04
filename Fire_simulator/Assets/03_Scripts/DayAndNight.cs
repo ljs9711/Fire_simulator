@@ -5,19 +5,18 @@ using UnityEngine;
 public class DayAndNight : MonoBehaviour
 {
     [SerializeField]
-    private float SecondPerRealTimeSecond; //게임세계 100초 = 현실 1초
+    private float SecondPerRealTimeSecond; // 게임 세계 100초 = 현실 1초
 
     private bool isNight = false;
 
     [SerializeField]
-    private float fogDensityCalc; //fog 증가 비율
+    private float fogDensityCalc; // 안개 증가 비율
 
     [SerializeField]
-    private float nightFogDensity; //밤 상태의 Fog 
-    private float dayFogDensity; //낮 상태의 Fog 
-    private float currentFogDensity; //계산
-
-
+    private float nightFogDensity; // 밤 안개 밀도
+    [SerializeField]
+    private float dayFogDensity; // 낮 안개 밀도
+    private float currentFogDensity; // 계산된 안개 밀도
 
     void Start()
     {
@@ -28,27 +27,20 @@ public class DayAndNight : MonoBehaviour
     {
         transform.Rotate(Vector3.right, 0.1f * SecondPerRealTimeSecond * Time.deltaTime);
 
-        if (transform.eulerAngles.x >= 170)
+        if (transform.eulerAngles.x >= 170 && transform.eulerAngles.x < 360)
             isNight = true;
-        else if (transform.eulerAngles.x >= 340)
+        else
             isNight = false;
-
 
         if (isNight)
         {
-            if (currentFogDensity <= nightFogDensity)
-            {
-                currentFogDensity += 0.1f * fogDensityCalc * Time.deltaTime;
-                RenderSettings.fogDensity = currentFogDensity;
-            }
+            currentFogDensity = Mathf.Lerp(currentFogDensity, nightFogDensity, 0.1f * fogDensityCalc * Time.deltaTime);
+            RenderSettings.fogDensity = currentFogDensity;
         }
         else
         {
-            if (currentFogDensity >= dayFogDensity)
-            {
-                currentFogDensity -= 0.1f * fogDensityCalc * Time.deltaTime;
-                RenderSettings.fogDensity = currentFogDensity;
-            }
+            // 아침에 Fog를 없애기
+            RenderSettings.fogDensity = 0f;
         }
     }
 }
