@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float cameraRotationLimit;
     private float currentCameraRotationX = 0;
+    private float pausedCameraRotationX; // 일시정지 전의 상하 회전값
 
     //컴포넌트
     [SerializeField]
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private GunController theGunController;
     private Crosshair theCrosshair;
     private StatusController theStatusController;
+    private WeaponSway weaponSway;
 
     //땅 착지 여부
     private CapsuleCollider capsuleCollider;
@@ -230,18 +232,26 @@ public class PlayerController : MonoBehaviour
 
 
     //상하 카메라 회전
-    private void CameraRotation()
+    public void CameraRotation()
     {
         float _xRotation = Input.GetAxisRaw("Mouse Y");
         float _cameraRotationX = _xRotation * lookSensitivity;
-        currentCameraRotationX -= _cameraRotationX;
-        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit); //currentCameraRotationX 안에 -cameraRotationLimit, cameraRotationLimit 를 Mathf.Clamp 사용해 가두는 것
+
+        if (!GameManager.isPause)
+        {
+            currentCameraRotationX -= _cameraRotationX;
+            currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
+        }
+        else
+        {
+            currentCameraRotationX = pausedCameraRotationX;
+        }
 
         theCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
     }
 
     //좌우 캐릭터회전
-    private void CharacterRotation()
+    public void CharacterRotation()
     {
         float _yRotation = Input.GetAxisRaw("Mouse X");
         Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f) * lookSensitivity;
@@ -250,7 +260,7 @@ public class PlayerController : MonoBehaviour
 
 
     //움직임 실행
-    private void Move()
+    public void Move()
     {
         float moveDirectionX = Input.GetAxisRaw("Horizontal");
         float moveDirectionZ = Input.GetAxisRaw("Vertical");
@@ -263,7 +273,7 @@ public class PlayerController : MonoBehaviour
         myRigid.MovePosition(transform.position + Velocity * Time.deltaTime); // Time.deltaTime 시간동안 velocity 만큼 움직임
     }
 
-    private void MoveCheck() //크로스헤어 플레이어 위치 체크
+    public void MoveCheck() //크로스헤어 플레이어 위치 체크
     {
         if (!isRun && !isCrouch && isGround)
         {
@@ -276,5 +286,36 @@ public class PlayerController : MonoBehaviour
             lastPos = transform.position;
         }
     }
+
+
+    ////////////PasuseMenu////////////////
+    
+    public void PauseMovement()
+    {
+        isWalk = false;
+        isRun = false;
+        isCrouch = false;
+        applySpeed = 0f; // 움직임 속도를 0으로 설정
+        // 현재의 상하 회전값을 저장
+        pausedCameraRotationX = currentCameraRotationX;
+        // 카메라의 상하 회전값을 일시정지
+        currentCameraRotationX = 0f;
+
+        // WeaponSway의 sway 효과 일시정지
+        if (weaponSway != null)
+            weaponSway.PauseSway();
+    }
+
+    public void ResumeMovement()
+    {
+        applySpeed = walkSpeed; // 움직임 속도를 다시 초기화
+        // 저장된 상하 회전값을 다시 적용
+        currentCameraRotationX = pausedCameraRotationX;
+
+        // WeaponSway의 sway 효과 해제
+        if (weaponSway != null)
+            weaponSway.ResumeSway();
+    }
+
 
 }

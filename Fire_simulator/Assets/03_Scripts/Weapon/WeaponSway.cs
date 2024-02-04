@@ -26,6 +26,8 @@ public class WeaponSway : MonoBehaviour
     [SerializeField]
     private GunController theGunController;
 
+    private bool isPaused = false; // 일시정지 여부
+
 
 
 
@@ -37,7 +39,8 @@ public class WeaponSway : MonoBehaviour
 
     void Update()
     {
-        TrySway();
+        if (!isPaused)
+            TrySway();
     }
 
 
@@ -48,6 +51,20 @@ public class WeaponSway : MonoBehaviour
         else
             BackToOriginPos();
     }
+
+
+    public void PauseSway()
+    {
+        isPaused = true;
+        currentPos = originPos; // 현재 위치를 기본 위치로 초기화하여 멈추도록 설정
+    }
+
+    public void ResumeSway()
+    {
+        isPaused = false;
+    }
+
+
 
     private void Swaying()
     {
