@@ -117,8 +117,8 @@ public class StatusController : MonoBehaviour
                 currentHungryDecreaseTime = 0;
             }
         }
-        else
-            Debug.Log("배고픔 수치가 0이 되었습니다.");
+        //else
+            //Debug.Log("배고픔 수치가 0이 되었습니다.");
     }
 
     // 목마름을 처리하는 함수
@@ -134,8 +134,8 @@ public class StatusController : MonoBehaviour
                 currentThirstyDecreaseTime = 0;
             }
         }
-        else
-            Debug.Log("목마름 수치가 0이 되었습니다.");
+        //else
+            //Debug.Log("목마름 수치가 0이 되었습니다.");
     }
 
     // UI 게이지 업데이트 함수

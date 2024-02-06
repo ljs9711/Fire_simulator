@@ -6,6 +6,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     private GameObject go_BaseUI;
+    [SerializeField]
+    private SaveAndLoad theSaveAndLoad;
 
     private PlayerController playerController; // PlayerController 스크립트 참조 변수
     //private WeaponSway weaponSway;
@@ -18,7 +20,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!GameManager.isPause)
                 PauseGame();
@@ -66,11 +68,13 @@ public class PauseMenu : MonoBehaviour
     public void ClickSave()
     {
         Debug.Log("세이브");
+        theSaveAndLoad.SaveData();
     }
 
     public void ClickLoad()
     {
         Debug.Log("로드");
+        theSaveAndLoad.LoadData();
     }
 
     public void ClickExit()

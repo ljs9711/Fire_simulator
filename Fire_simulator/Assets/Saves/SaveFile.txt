@@ -1,0 +1,1 @@
+{"playerPos":{"x":-6.514392852783203,"y":3.64866304397583,"z":5.278079032897949},"playerRot":{"x":0.0,"y":331.6292419433594,"z":0.0},"invenArrayNumber":[0,1,2,3,4,5,6,7],"invenItemName":["Rock","Rock","Rock","Rock","Gun","Wood","Wood","Wood"],"invenItemNumber":[1,1,1,1,1,1,1,1]}
