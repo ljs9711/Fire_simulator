@@ -5,14 +5,10 @@ using UnityEngine;
 public class PickAxeController : MeleeWeaponController
 {
     //활성화 여부
-    public static bool isActivate = true;
+    public static bool isActivate = false;
 
 
-    void Start()
-    {
-        WeaponManager.currentWeapon = currentMeleeWeapon.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentMeleeWeapon.anim;
-    }
+    
 
     void Update()
     {

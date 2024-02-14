@@ -76548,6 +76548,10 @@ PrefabInstance:
       propertyPath: attackDelay_in
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2375371993891456886, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3162483388149743664, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.46
@@ -76587,6 +76591,10 @@ PrefabInstance:
     - target: {fileID: 3162483388149743664, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3171731579630709042, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6278050958749094316, guid: ebb5718bf7109134fad00ccf2f4a9c2a, type: 3}
       propertyPath: runSpeed
