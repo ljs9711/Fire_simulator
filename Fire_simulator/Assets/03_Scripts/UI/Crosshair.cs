@@ -7,56 +7,60 @@ public class Crosshair : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-
-    //크로스헤어 상태에 따른 총 정확도
+    // 크로스헤어 상태에 따른 총 정확도
     private float gunAccuracy;
 
-    //크로스헤어 비활성화를 위한 부모 객체
+    // 크로스헤어 비활성화를 위한 부모 객체
     [SerializeField]
     private GameObject go_crosshairHUD;
     [SerializeField]
     private GunController theGunController;
 
+    // 걷기 애니메이션 설정
     public void WalkingAnimation(bool _flag)
     {
         WeaponManager.currentWeaponAnim.SetBool("Walk", _flag);
         animator.SetBool("Walking", _flag);
     }
+
+    // 뛰기 애니메이션 설정
     public void RunningAnimation(bool _flag)
     {
         WeaponManager.currentWeaponAnim.SetBool("Run", _flag);
         animator.SetBool("Running", _flag);
     }
+
+    // 점프 애니메이션 설정
     public void JumpingAnimation(bool _flag)
     {
         animator.SetBool("Running", _flag);
     }
+
+    // 앉기 애니메이션 설정
     public void CrouchingAnimation(bool _flag)
     {
         animator.SetBool("Crouching", _flag);
     }
+
+    // 정조준 애니메이션 설정
     public void FineSightAnimation(bool _flag)
     {
         animator.SetBool("FineSight", _flag);
     }
 
-
-
-
-
+    // 발사 애니메이션 설정
     public void FireAnimation()
     {
         if (animator.GetBool("Walking"))
             animator.SetTrigger("Walk_Fire");
-
         else if (animator.GetBool("Crouching"))
             animator.SetTrigger("Crouch_Fire");
-
         else
             animator.SetTrigger("Idle_Fire");
     }
 
-    public float GetAccuracy() //낮을수록 정확도 증가
+    // 총 정확도 반환
+    public float GetAccuracy()
     {
         if (animator.GetBool("Walking"))
             gunAccuracy = 0.06f;
@@ -68,6 +72,5 @@ public class Crosshair : MonoBehaviour
             gunAccuracy = 0.035f;
 
         return gunAccuracy;
-
     }
 }

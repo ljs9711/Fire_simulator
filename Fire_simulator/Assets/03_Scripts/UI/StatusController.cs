@@ -6,60 +6,49 @@ using UnityEngine.UI;
 public class StatusController : MonoBehaviour
 {
     // 체력
-    [SerializeField]
-    private int hp;
+    [SerializeField] private int hp;
     private int currentHp;
 
     // 스태미나
-    [SerializeField]
-    private int sp;
+    [SerializeField] private int sp;
     private int currentSp;
 
     // 스태미나 증가량
-    [SerializeField]
-    private int spIncreaseSpeed;
+    [SerializeField] private int spIncreaseSpeed;
 
     // 스태미나 재회복 딜레이
-    [SerializeField]
-    private int spRechargeTime;
+    [SerializeField] private int spRechargeTime;
     private int currentSpRechargeTime;
 
     // 스태미나 감소 여부
     private bool spUsed;
 
     // 방어력
-    [SerializeField]
-    private int dp;
+    [SerializeField] private int dp;
     private int currentDp;
 
     // 배고픔
-    [SerializeField]
-    private int hungry;
+    [SerializeField] private int hungry;
     private int currentHungry;
 
     // 배고픔이 줄어드는 속도
-    [SerializeField]
-    private int hungryDecreaseTime;
+    [SerializeField] private int hungryDecreaseTime;
     private int currentHungryDecreaseTime;
 
     // 목마름
-    [SerializeField]
-    private int thirsty;
+    [SerializeField] private int thirsty;
     private int currentThirsty;
 
     // 목마름이 줄어드는 속도
-    [SerializeField]
-    private int thirstyDecreaseTime;
+    [SerializeField] private int thirstyDecreaseTime;
     private int currentThirstyDecreaseTime;
 
     // 만족도
-    [SerializeField]
-    private int satisfy;
+    [SerializeField] private int satisfy;
     private int currentSatisfy;
 
     // 필요한 이미지
-    [SerializeField]
-    private Image[] images_Gauge;
+    [SerializeField] private Image[] images_Gauge;
 
     private const int HP = 0, DP = 1, SP = 2, HUNGRY = 3, THIRSTY = 4, SATISFY = 5;
 
@@ -117,8 +106,10 @@ public class StatusController : MonoBehaviour
                 currentHungryDecreaseTime = 0;
             }
         }
-        //else
-            //Debug.Log("배고픔 수치가 0이 되었습니다.");
+        else
+        {
+            Debug.Log("배고픔 수치가 0이 되었습니다.");
+        }
     }
 
     // 목마름을 처리하는 함수
@@ -134,8 +125,10 @@ public class StatusController : MonoBehaviour
                 currentThirstyDecreaseTime = 0;
             }
         }
-        //else
-            //Debug.Log("목마름 수치가 0이 되었습니다.");
+        else
+        {
+            Debug.Log("목마름 수치가 0이 되었습니다.");
+        }
     }
 
     // UI 게이지 업데이트 함수

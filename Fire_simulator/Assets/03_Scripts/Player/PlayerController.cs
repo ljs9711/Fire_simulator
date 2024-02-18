@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     // 이동 관련 변수들
-    [SerializeField]
-    private float walkSpeed; // 걷기 속도
-    [SerializeField]
-    private float runSpeed; // 달리기 속도
+    [SerializeField] private float walkSpeed; // 걷기 속도
+    [SerializeField] private float runSpeed; // 달리기 속도
     private float applySpeed; // 현재 적용 중인 속도
-    [SerializeField]
-    private float crouchSpeed; // 앉았을 때 속도
+    [SerializeField] private float crouchSpeed; // 앉았을 때 속도
 
-    [SerializeField]
-    private float jumpForce; // 점프 힘
+    [SerializeField] private float jumpForce; // 점프 힘
 
     // 플레이어 상태 관련 변수들
     private bool isWalk = false; // 걷기 여부
@@ -27,29 +22,24 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastPos; // 이전 위치 저장
 
     // 앉았을 때 얼마나 앉을지 결정하는 변수
-    [SerializeField]
-    private float crouchPosY; // 앉은 상태의 카메라 높이
+    [SerializeField] private float crouchPosY; // 앉은 상태의 카메라 높이
     private float originPosY; // 원래 카메라 높이
     private float applyCrouchY; // 적용 중인 카메라 높이
 
     // 민감도
-    [SerializeField]
-    private float lookSensitivity; // 마우스 감도
+    [SerializeField] private float lookSensitivity; // 마우스 감도
 
     // 카메라 한계
-    [SerializeField]
-    private float cameraRotationLimit; // 카메라 회전 한계
+    [SerializeField] private float cameraRotationLimit; // 카메라 회전 한계
     private float currentCameraRotationX = 0; // 현재 카메라의 상하 회전값
     private float pausedCameraRotationX; // 일시정지 전의 상하 회전값
 
     // 컴포넌트
-    [SerializeField]
-    private Camera theCamera; // 메인 카메라
+    [SerializeField] private Camera theCamera; // 메인 카메라
     private Rigidbody myRigid; // Rigidbody 컴포넌트
     private GunController theGunController; // 총기 컨트롤러
     private Crosshair theCrosshair; // 크로스헤어
     private StatusController theStatusController; // 상태 컨트롤러
-    private WeaponSway weaponSway; // 무기 흔들림
 
     // 땅 착지 여부 체크를 위한 콜라이더
     private CapsuleCollider capsuleCollider;
@@ -278,10 +268,6 @@ public class PlayerController : MonoBehaviour
         applySpeed = 0f; // 움직임 속도를 0으로 설정
         pausedCameraRotationX = currentCameraRotationX; // 현재의 상하 회전값을 저장
         currentCameraRotationX = 0f; // 카메라의 상하 회전값을 일시정지
-
-        // WeaponSway의 sway 효과 일시정지
-        if (weaponSway != null)
-            weaponSway.PauseSway();
     }
 
     // 일시정지 해제 시 움직임 복구
@@ -289,9 +275,5 @@ public class PlayerController : MonoBehaviour
     {
         applySpeed = walkSpeed; // 움직임 속도를 다시 초기화
         currentCameraRotationX = pausedCameraRotationX; // 저장된 상하 회전값을 다시 적용
-
-        // WeaponSway의 sway 효과 해제
-        if (weaponSway != null)
-            weaponSway.ResumeSway();
     }
 }

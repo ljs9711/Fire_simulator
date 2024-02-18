@@ -5,60 +5,63 @@ using UnityEngine;
 public class Rock : MonoBehaviour
 {
     [SerializeField]
-    private int hp; //바위의 체력
+    private int hp; // 바위의 체력
 
     [SerializeField]
-    private float destroyTime; //파편 제거 시간
+    private float destroyTime; // 파편 제거 시간
 
     [SerializeField]
-    private SphereCollider col; // 메쉬콜라이더
+    private SphereCollider col; // 콜라이더
 
-    //필요한 게임 오브젝트
+    // 필요한 게임 오브젝트
     [SerializeField]
-    private GameObject go_rock; //일반 바위
+    private GameObject go_rock; // 일반 바위
     [SerializeField]
-    private GameObject go_debris; //깨진 바위
+    private GameObject go_debris; // 깨진 바위
     [SerializeField]
-    private GameObject go_effect_prefabs; //채굴 이펙트
+    private GameObject go_effect_prefabs; // 채굴 이펙트
     [SerializeField]
-    private GameObject go_rock_item_prefab; //바위 아이템
+    private GameObject go_rock_item_prefab; // 바위 아이템
 
-    //바위 파괴시 아이템 갯수
+    // 바위 파괴 시 아이템 갯수
     [SerializeField]
     private int count;
 
-    //필요한 사운드 이름
+    // 필요한 사운드 이름
     [SerializeField]
-    private string strike_Sound;
+    private string strike_Sound; // 채굴 사운드
     [SerializeField]
-    private string destroy_Sound;
+    private string destroy_Sound; // 파괴 사운드
 
+    // 채굴 함수
     public void Mining()
     {
-        SoundManager.instance.PlaySE(strike_Sound);
+        SoundManager.instance.PlaySE(strike_Sound); // 채굴 사운드 재생
 
-        var clone = Instantiate(go_effect_prefabs, col.bounds.center, Quaternion.identity);
-        Destroy(clone, destroyTime);
+        var clone = Instantiate(go_effect_prefabs, col.bounds.center, Quaternion.identity); // 채굴 이펙트 생성
+        Destroy(clone, destroyTime); // 이펙트 제거
 
-        hp--;
+        hp--; // 바위 체력 감소
         if (hp <= 0)
-            Destruction();
+            Destruction(); // 체력이 0 이하일 때 파괴 함수 호출
     }
 
+    // 파괴 함수
     private void Destruction()
     {
-        SoundManager.instance.PlaySE(destroy_Sound);
+        SoundManager.instance.PlaySE(destroy_Sound); // 파괴 사운드 재생
 
-        col.enabled = false;
+        col.enabled = false; // 콜라이더 비활성화
 
+        // 아이템 생성
         for (int i = 0; i < count; i++)
         {
             Instantiate(go_rock_item_prefab, go_rock.transform.position, Quaternion.identity);
         }
 
-        Destroy(go_rock);
+        Destroy(go_rock); // 일반 바위 제거
 
-        go_debris.SetActive(true);
-        Destroy(go_debris, destroyTime);
+        go_debris.SetActive(true); // 깨진 바위 활성화
+        Destroy(go_debris, destroyTime); // 깨진 바위 제거
     }
 }

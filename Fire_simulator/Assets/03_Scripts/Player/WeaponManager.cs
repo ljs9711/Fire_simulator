@@ -6,30 +6,24 @@ public class WeaponManager : MonoBehaviour
 {
     // 무기 중복 교체 실행 방지
     public static bool isChangeWeapon = false;
+
     // 현재 무기, 현재무기 애니메이션
     public static Transform currentWeapon; // 기존무기 껐다 키기 용
     public static Animator currentWeaponAnim;
 
     // 현재 무기의 타입
-    [SerializeField]
-    private string currentWeaponType;
+    [SerializeField] private string currentWeaponType;
 
     // 무기 교체 딜레이
-    [SerializeField]
-    private float changeWeaponDelayTime = 1;
+    [SerializeField] private float changeWeaponDelayTime = 1;
     // 무기 교체가 완전 끝난 시점
-    [SerializeField]
-    private float changeWeaponEndDelayTime;
+    [SerializeField] private float changeWeaponEndDelayTime;
 
     // 무기 종류들 관리
-    [SerializeField]
-    private Gun[] guns;
-    [SerializeField]
-    private MeleeWeapon[] hands;
-    [SerializeField]
-    private MeleeWeapon[] axes;
-    [SerializeField]
-    private MeleeWeapon[] pickaxes;
+    [SerializeField] private Gun[] guns;
+    [SerializeField] private MeleeWeapon[] hands;
+    [SerializeField] private MeleeWeapon[] axes;
+    [SerializeField] private MeleeWeapon[] pickaxes;
 
     // 관리 차원에서 쉽게 무기 접근이 가능하도록 만듦.
     private Dictionary<string, Gun> gunDictionary = new Dictionary<string, Gun>();
@@ -38,58 +32,42 @@ public class WeaponManager : MonoBehaviour
     private Dictionary<string, MeleeWeapon> pickaxeDictionary = new Dictionary<string, MeleeWeapon>();
 
     // 필요한 컴포넌트
-    [SerializeField]
-    private GunController theGunController;
-    [SerializeField]
-    private HandController theHandController;
-    [SerializeField]
-    private AxeController theAxeController;
-    [SerializeField]
-    private PickAxeController thePickAxeController;
-
+    [SerializeField] private GunController theGunController;
+    [SerializeField] private HandController theHandController;
+    [SerializeField] private AxeController theAxeController;
+    [SerializeField] private PickAxeController thePickAxeController;
 
     void Start()
     {
         // 무기 딕셔너리 초기화
-        for (int i = 0; i < guns.Length; i++)
-        {
-            gunDictionary.Add(guns[i].gunName, guns[i]);
-        }
-        for (int i = 0; i < hands.Length; i++)
-        {
-            handDictionary.Add(hands[i].MeleeWeaponName, hands[i]);
-        }
-        for (int i = 0; i < axes.Length; i++)
-        {
-            axeDictionary.Add(axes[i].MeleeWeaponName, axes[i]);
-        }
-        for (int i = 0; i < pickaxes.Length; i++)
-        {
-            pickaxeDictionary.Add(pickaxes[i].MeleeWeaponName, pickaxes[i]);
-        }
+        foreach (Gun gun in guns)
+            gunDictionary.Add(gun.gunName, gun);
+
+        foreach (MeleeWeapon hand in hands)
+            handDictionary.Add(hand.MeleeWeaponName, hand);
+
+        foreach (MeleeWeapon axe in axes)
+            axeDictionary.Add(axe.MeleeWeaponName, axe);
+
+        foreach (MeleeWeapon pickaxe in pickaxes)
+            pickaxeDictionary.Add(pickaxe.MeleeWeaponName, pickaxe);
     }
 
     void Update()
     {
         // 키 입력에 따른 무기 교체 시도
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!isChangeWeapon)
         {
-            StartCoroutine(ChangeWeaponCoroutine("HAND", "맨손"));
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            StartCoroutine(ChangeWeaponCoroutine("GUN", "SubMachineGun1")); // 서브머신건
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            StartCoroutine(ChangeWeaponCoroutine("AXE", "Axe")); // 도끼
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            StartCoroutine(ChangeWeaponCoroutine("PICKAXE", "PickAxe")); // 곡괭이
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                StartCoroutine(ChangeWeaponCoroutine("HAND", "맨손"));
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+                StartCoroutine(ChangeWeaponCoroutine("GUN", "SubMachineGun1")); // 서브머신건
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+                StartCoroutine(ChangeWeaponCoroutine("AXE", "Axe")); // 도끼
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+                StartCoroutine(ChangeWeaponCoroutine("PICKAXE", "PickAxe")); // 곡괭이
         }
     }
-
 
     // 무기 교체 코루틴
     public IEnumerator ChangeWeaponCoroutine(string _type, string _name)
